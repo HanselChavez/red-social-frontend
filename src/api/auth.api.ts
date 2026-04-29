@@ -1,15 +1,5 @@
-import axios from "axios";
 import type { AuthResponse } from "@/types/auth";
-
-export const api = axios.create({
-  baseURL: import.meta.env.VITE_BACKEND_URL,
-  withCredentials: true,
-});
-
-export const apiAuth = axios.create({
-  baseURL: import.meta.env.VITE_BACKEND_URL,
-});
-
+import { api, apiAuth } from "./axios";
 
 export const loginRequest = async (data: {
     email: string;
@@ -17,4 +7,10 @@ export const loginRequest = async (data: {
 }): Promise<AuthResponse> => {
     const res = await api.post("/auth/login", data);
     return res.data.data;
+};
+
+export const logoutRequest = (refreshToken: string) => {
+    return apiAuth.post("/auth/logout", {
+        refreshToken,
+    });
 };

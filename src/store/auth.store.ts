@@ -1,49 +1,72 @@
 // src/store/auth.store.ts
-import { create } from "zustand"
-import type { User } from "@/types/auth"
-import { loginRequest } from "@/api/auth.api"
+import { create } from "zustand";
+import type { User } from "@/types/auth";
+import { loginRequest, logoutRequest } from "@/api/auth.api";
 
 interface AuthState {
-  user: User | null
-  accessToken: string | null
-  refreshToken: string | null
+    user: User | null;
+    accessToken: string | null;
+    refreshToken: string | null;
 
-  login: (email: string, password: string) => Promise<void>
-  logout: () => void
+    login: (email: string, password: string) => Promise<void>;
+    logout: () => Promise<void>;
+}
+interface LocalStorageState {
+    accessToken: string;
+    isNewDevice: boolean;
+    refreshToken: string;
+    user: User;
 }
 
-const stored = localStorage.getItem("auth")
+let initial: LocalStorageState | null = null;
 
-const initial = stored ? JSON.parse(stored) : null
-
-export const useAuthStore = create<AuthState>((set) => ({
-  user: initial?.user || null,
-  accessToken: initial?.accessToken || null,
-  refreshToken: initial?.refreshToken || null,
-
-  login: async (email, password) => {
-    try {
-      const data = await loginRequest({ email, password })
-
-      set({
-        user: data.user,
-        accessToken: data.accessToken,
-        refreshToken: data.refreshToken,
-      })
-
-      localStorage.setItem("auth", JSON.stringify(data))
-    } catch (error: any) {
-      throw error.response?.data || error
+try {
+    const stored = localStorage.getItem("auth");
+    if (stored) {
+        initial = JSON.parse(stored);
     }
-  },
+} catch {
+    localStorage.removeItem("auth");
+}
 
-  logout: () => {
-    set({
-      user: null,
-      accessToken: null,
-      refreshToken: null,
-    })
+export const useAuthStore = create<AuthState>((set, get) => ({
+    user: initial?.user || null,
+    accessToken: initial?.accessToken || null,
+    refreshToken: initial?.refreshToken || null,
 
-    localStorage.removeItem("auth")
-  },
-}))
+    login: async (email, password) => {
+        try {
+            const data = await loginRequest({ email, password });
+
+            set({
+                user: data.user,
+                accessToken: data.accessToken,
+                refreshToken: data.refreshToken,
+            });
+
+            localStorage.setItem("auth", JSON.stringify(data));
+        } catch (error: any) {
+            throw error.response?.data || error;
+        }
+    },
+
+    logout: async () => {
+        try {
+            const refreshToken = get().refreshToken;
+
+            if (refreshToken) {
+                await logoutRequest(refreshToken);
+            }
+        } catch (error) {
+            console.warn("Error logout backend (no crítico)");
+        } finally {
+            set({
+                user: null,
+                accessToken: null,
+                refreshToken: null,
+            });
+
+            localStorage.removeItem("auth");
+        }
+    },
+}));

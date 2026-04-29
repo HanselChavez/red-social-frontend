@@ -1,6 +1,6 @@
+import { api } from "@/api/axios";
 import { CheckCircle, XCircle, Mail } from "lucide-react";
 import { useState } from "react";
-import { api } from "@/api/auth.api";
 
 const Verify = () => {
     const params = new URLSearchParams(window.location.search);
