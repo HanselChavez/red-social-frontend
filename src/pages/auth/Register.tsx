@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Mail, Lock, User } from "lucide-react";
-import { api } from "@/api/auth.api";
+import { api } from "@/api/axios";
 
 export default function Register() {
     const [form, setForm] = useState({
