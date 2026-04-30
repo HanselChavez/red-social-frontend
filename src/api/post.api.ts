@@ -1,0 +1,42 @@
+import { apiAuth } from "./axios";
+
+export const createPostRequest = async (data: { content: string }) => {
+    const res = await apiAuth.post("/posts", data);
+    console.log(res);
+    return res.data.data;
+};
+
+export const getAllPostsRequest = async () => {
+    const res = await apiAuth.get("/posts");
+    console.log(res);
+    return res.data.data;
+};
+
+export const deletePostRequest = async (id: number) => {
+    const res = await apiAuth.delete(`/posts/${id}`);
+    console.log(res);
+    return res.data.data;
+};
+
+export const getMyPostsRequest = async () => {
+    const res = await apiAuth.get("/posts/me");
+    console.log(res);
+    return res.data.data;
+};
+
+export const updatePostVisibilityRequest = async (
+    id: number,
+    visibility: "public" | "friends" | "private",
+) => {
+    const res = await apiAuth.patch(`/posts/${id}/visibility`, {
+        visibility,
+    });
+    return res.data.data.data;
+};
+export const updatePostRequest = async (
+    id: number,
+    data: { content?: string },
+) => {
+    const res = await apiAuth.put(`/posts/${id}`, data);
+    return res.data.data;
+};

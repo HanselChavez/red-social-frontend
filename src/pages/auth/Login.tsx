@@ -19,7 +19,7 @@ export default function Login() {
 
             console.log("Login exitoso");
 
-            window.location.href = "/";
+            window.location.href = "/home";
         } catch (err: any) {
             console.error("Error login:", err);
             alert(err.message || "Error al iniciar sesión");
