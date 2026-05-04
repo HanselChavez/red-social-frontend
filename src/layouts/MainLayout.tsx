@@ -43,7 +43,7 @@ const trending = [
 export default function MainLayout() {
     return (
         <div className="min-h-screen bg-background text-foreground flex">
-            <aside className="w-[20%] min-w-220px max-w-260px border-r border-border p-4 fixed h-full left-0 top-0 bg-card">
+            <aside className="w-64 h-screen sticky top-0 border-r border-border p-4 flex flex-col justify-between">
                 <div>
                     <h1 className="text-2xl font-bold mb-8">UniConnect</h1>
 
@@ -153,79 +153,65 @@ export default function MainLayout() {
                 </div>
             </aside>
 
-            <div className="ml-[20%] w-[80%] flex flex-col">
-                <header className="h-16 border-b border-border flex items-center px-6 justify-between sticky top-0 bg-background z-50">
-                    <div className="font-semibold">Feed</div>
+            <main className="flex-1 min-h-screen bg-background text-foreground p-4">
+                <Outlet />
+            </main>
 
-                    <input
-                        placeholder="Buscar..."
-                        className="bg-card border border-border rounded-full px-4 py-2 text-sm outline-none"
-                    />
-                </header>
-                <div className="flex flex-1 overflow-hidden">
-                    <main className="w-[70%] overflow-y-auto p-6 space-y-6">
-                        <Outlet />
-                    </main>
-
-                    <aside className="w-[30%] border-l border-border p-4 hidden lg:block">
-                        <div className="bg-muted/40 rounded-2xl p-4">
-                            <h2 className="text-base font-bold mb-4">
-                                Sugerido para ti
-                            </h2>
-                            <div className="space-y-4">
-                                {suggestedUsers.map((user) => (
-                                    <div
-                                        key={user.id}
-                                        className="flex items-center justify-between gap-2"
-                                    >
-                                        <div className="flex items-center gap-3 min-w-0">
-                                            <img
-                                                src={user.avatar}
-                                                alt={user.name}
-                                                className="w-9 h-9 rounded-full object-cover flex-shrink-0"
-                                            />
-                                            <div className="min-w-0">
-                                                <p className="text-sm font-semibold leading-tight truncate">
-                                                    {user.name}
-                                                </p>
-                                                <p className="text-xs text-muted-foreground truncate">
-                                                    {user.username}
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <button className="text-sm font-semibold px-3 py-1.5 rounded-full border border-border hover:bg-muted transition flex-shrink-0">
-                                            Seguir
-                                        </button>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Trending */}
-                        <div className="bg-muted/40 rounded-2xl p-4">
-                            <h2 className="text-base font-bold mb-4">
-                                Tendencia
-                            </h2>
-                            <div className="space-y-4">
-                                {trending.map((item) => (
-                                    <div
-                                        key={item.tag}
-                                        className="cursor-pointer group"
-                                    >
-                                        <p className="text-sm font-bold text-yellow-400 group-hover:underline">
-                                            {item.tag}
+            <aside className="w-72 h-screen sticky top-0 border-l border-border p-4 space-y-6 overflow-y-auto">
+                <div className="bg-muted/40 rounded-2xl p-4">
+                    <h2 className="text-base font-bold mb-4">
+                        Sugerido para ti
+                    </h2>
+                    <div className="space-y-4">
+                        {suggestedUsers.map((user) => (
+                            <div
+                                key={user.id}
+                                className="flex items-center justify-between gap-2"
+                            >
+                                <div className="flex items-center gap-3 min-w-0">
+                                    <img
+                                        src={user.avatar}
+                                        alt={user.name}
+                                        className="w-9 h-9 rounded-full object-cover flex-shrink-0"
+                                    />
+                                    <div className="min-w-0">
+                                        <p className="text-sm font-semibold leading-tight truncate">
+                                            {user.name}
                                         </p>
-                                        <p className="text-xs text-muted-foreground">
-                                            {item.posts}
+                                        <p className="text-xs text-muted-foreground truncate">
+                                            {user.username}
                                         </p>
                                     </div>
-                                ))}
+                                </div>
+                                <button className="text-sm font-semibold px-3 py-1.5 rounded-full border border-border hover:bg-muted transition flex-shrink-0">
+                                    Seguir
+                                </button>
                             </div>
-                        </div>
-                    </aside>
+                        ))}
+                    </div>
                 </div>
-            </div>
-            <div className="fixed bottom-6 right-6 z-9999">
+
+                <div className="bg-muted/40 rounded-2xl p-4">
+                    <h2 className="text-base font-bold mb-4">Tendencia</h2>
+                    <div className="space-y-4">
+                        {trending.map((item) => (
+                            <div
+                                key={item.tag}
+                                className="cursor-pointer group"
+                            >
+                                <p className="text-sm font-bold text-yellow-400 group-hover:underline">
+                                    {item.tag}
+                                </p>
+                                <p className="text-xs text-muted-foreground">
+                                    {item.posts}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </aside>
+
+            <div className="fixed bottom-6 right-6 z-[9999]">
                 <ThemeButton />
             </div>
         </div>

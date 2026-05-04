@@ -14,3 +14,24 @@ export const logoutRequest = (refreshToken: string) => {
         refreshToken,
     });
 };
+
+export const createPostRequest = async (data: {
+    content: string;
+    image?: File | null;
+}) => {
+    const formData = new FormData();
+
+    formData.append("content", data.content);
+
+    if (data.image) {
+        formData.append("image", data.image);
+    }
+
+    const res = await apiAuth.post("/posts", formData, {
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+    });
+
+    return res.data.data;
+};
