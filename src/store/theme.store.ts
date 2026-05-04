@@ -7,32 +7,50 @@ interface ThemeState {
     toggleTheme: () => void;
     setTheme: (theme: Theme) => void;
 }
-function getSystemTheme() {
+
+function getInitialTheme(): Theme {
+    const savedTheme = localStorage.getItem("theme") as Theme | null;
+
+    if (savedTheme === "light" || savedTheme === "dark") {
+        return savedTheme;
+    }
+
     return window.matchMedia("(prefers-color-scheme: dark)").matches
         ? "dark"
         : "light";
 }
-const systemTheme = getSystemTheme();
+
+function applyTheme(theme: Theme) {
+    const root = document.documentElement;
+
+    if (theme === "dark") {
+        root.classList.add("dark");
+    } else {
+        root.classList.remove("dark");
+    }
+
+    localStorage.setItem("theme", theme);
+}
+
+const initialTheme = getInitialTheme();
+
+applyTheme(initialTheme);
+
 export const useThemeStore = create<ThemeState>((set) => ({
-    theme: (localStorage.getItem("theme") as Theme) || systemTheme,
+    theme: initialTheme,
 
     toggleTheme: () =>
         set((state) => {
-            const newTheme = state.theme === "light" ? "dark" : "light";
+            const newTheme: Theme =
+                state.theme === "light" ? "dark" : "light";
 
-            document.documentElement.classList.remove(state.theme);
-            document.documentElement.classList.add(newTheme);
-
-            localStorage.setItem("theme", newTheme);
+            applyTheme(newTheme);
 
             return { theme: newTheme };
         }),
 
     setTheme: (theme) => {
-        document.documentElement.classList.remove("light", "dark");
-        document.documentElement.classList.add(theme);
-
-        localStorage.setItem("theme", theme);
+        applyTheme(theme);
         set({ theme });
     },
 }));

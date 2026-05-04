@@ -17,11 +17,10 @@ export const usePosts = () => {
         }
     };
 
-    const createPost = async (content: string) => {
+    const createPost = async (content: string, image?: File | null) => {
         try {
-            await createPostRequest({ content });
+            await createPostRequest({ content, image });
 
-            // 🔥 REFRESH automático
             await fetchPosts();
         } catch (err) {
             console.error("Error creating post", err);

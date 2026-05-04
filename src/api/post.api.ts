@@ -1,8 +1,19 @@
 import { apiAuth } from "./axios";
 
-export const createPostRequest = async (data: { content: string }) => {
-    const res = await apiAuth.post("/posts", data);
-    console.log(res);
+export const createPostRequest = async (data: {
+    content: string;
+    image?: File | null;
+}) => {
+    const formData = new FormData();
+
+    formData.append("content", data.content);
+
+    if (data.image) {
+        formData.append("image", data.image);
+    }
+
+    const res = await apiAuth.post("/posts", formData);
+
     return res.data.data;
 };
 
