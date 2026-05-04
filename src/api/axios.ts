@@ -21,16 +21,6 @@ const processQueue = (error: any, token: string | null = null) => {
 };
 
 apiAuth.interceptors.request.use((config) => {
-    const token = useAuthStore.getState().accessToken;
-
-    if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-    }
-
-    return config;
-});
-
-apiAuth.interceptors.request.use((config) => {
     const { accessToken, refreshToken } = useAuthStore.getState();
 
     if (accessToken) {
@@ -43,6 +33,7 @@ apiAuth.interceptors.request.use((config) => {
 
     return config;
 });
+
 apiAuth.interceptors.response.use(
     (res) => res,
     async (error) => {

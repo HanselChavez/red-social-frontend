@@ -9,7 +9,7 @@ interface AuthState {
     refreshToken: string | null;
 
     login: (email: string, password: string) => Promise<void>;
-    logout: () => Promise<void>;
+        logout: () => Promise<void>;
 }
 interface LocalStorageState {
     accessToken: string;
