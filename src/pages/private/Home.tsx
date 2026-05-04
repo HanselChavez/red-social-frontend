@@ -6,7 +6,7 @@ export default function Home() {
     const { posts, createPost, loading } = usePosts();
 
     return (
-        <div className="max-w-2xl mx-auto space-y-6">
+        <div className="max-w-2xl md:max-w-3xl w-full mx-auto space-y-6">
             <div className="bg-white dark:bg-[#242424] border border-gray-300 dark:border-gray-700 rounded-full px-5 py-3 text-gray-800 dark:text-gray-200 shadow-sm transition-colors">
                 🔍 Buscar UniConnect...
             </div>

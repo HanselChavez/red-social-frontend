@@ -32,6 +32,9 @@ function applyTheme(theme: Theme) {
     localStorage.setItem("theme", theme);
 }
 
+export function initTheme() {
+    applyTheme(initialTheme);
+}
 const initialTheme = getInitialTheme();
 
 applyTheme(initialTheme);
@@ -41,8 +44,7 @@ export const useThemeStore = create<ThemeState>((set) => ({
 
     toggleTheme: () =>
         set((state) => {
-            const newTheme: Theme =
-                state.theme === "light" ? "dark" : "light";
+            const newTheme: Theme = state.theme === "light" ? "dark" : "light";
 
             applyTheme(newTheme);
 

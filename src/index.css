@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @theme {
-    --color-background: #f8f8f8;
+    --color-background: #d1d1d1;
     --color-foreground: #262626;
 
     --color-primary: #feb81a;
@@ -11,8 +11,10 @@
 
 .dark {
     --color-background: #262626;
-    --color-foreground: #f8f8f8;
+    --color-foreground: #d1d1d1;
 
     --color-card: #1f1f1f;
     --color-border: #333333;
 }
+
+

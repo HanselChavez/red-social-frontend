@@ -29,7 +29,7 @@ export default function CreatePost({ onCreate }: Props) {
     };
 
     return (
-        <div className="bg-white dark:bg-[#1f1f1f] border border-gray-300 dark:border-gray-700 rounded-2xl p-4 shadow-sm transition-colors">
+        <div className="bg-card border border-border rounded-2xl p-4 shadow-sm transition-colors">
             <div className="flex gap-3">
                 <img
                     src={

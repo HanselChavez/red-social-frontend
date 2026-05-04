@@ -43,7 +43,7 @@ const trending = [
 export default function MainLayout() {
     return (
         <div className="min-h-screen bg-background text-foreground flex">
-            <aside className="w-64 h-screen sticky top-0 border-r border-border p-4 flex flex-col justify-between">
+            <aside className="w-64 md:w-xs lg:w-25rem h-screen sticky top-0 border-r border-border p-4 flex flex-col justify-between">
                 <div>
                     <h1 className="text-2xl font-bold mb-8">UniConnect</h1>
 
@@ -153,11 +153,11 @@ export default function MainLayout() {
                 </div>
             </aside>
 
-            <main className="flex-1 min-h-screen bg-background text-foreground p-4">
+            <main className="flex-1 min-h-screen w-full bg-background text-foreground p-4">
                 <Outlet />
             </main>
 
-            <aside className="w-72 h-screen sticky top-0 border-l border-border p-4 space-y-6 overflow-y-auto">
+            <aside className="w-72 md:w-xs lg:w-sm h-screen sticky top-0 border-l border-border p-4 space-y-6 overflow-y-auto">
                 <div className="bg-muted/40 rounded-2xl p-4">
                     <h2 className="text-base font-bold mb-4">
                         Sugerido para ti
@@ -211,7 +211,7 @@ export default function MainLayout() {
                 </div>
             </aside>
 
-            <div className="fixed bottom-6 right-6 z-[9999]">
+            <div className="fixed bottom-6 right-6 z-999">
                 <ThemeButton />
             </div>
         </div>

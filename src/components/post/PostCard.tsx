@@ -12,7 +12,7 @@ export default function PostCard({ post }: { post: Post }) {
         : "https://i.pravatar.cc/40";
 
     return (
-        <div className="bg-white dark:bg-[#1f1f1f] text-gray-900 dark:text-white border border-gray-300 dark:border-gray-700 rounded-2xl p-4 shadow-sm transition-colors">
+        <div className="bg-card text-gray-900 dark:text-white border border-gray-300 dark:border-gray-700 rounded-2xl p-4 shadow-sm transition-colors">
             <div className="flex gap-3">
                 <img
                     src={avatarUrl}
