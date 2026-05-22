@@ -51,3 +51,23 @@ export const updatePostRequest = async (
     const res = await apiAuth.put(`/posts/${id}`, data);
     return res.data.data;
 };
+
+export const toggleLikePostRequest = async (postId: number) => {
+    const res = await apiAuth.post(`/posts/${postId}/like`);
+    return res.data.data;
+};
+
+export const createCommentRequest = async (
+    postId: number,
+    content: string,
+) => {
+    const res = await apiAuth.post(`/posts/${postId}/comments`, {
+        content,
+    });
+
+    return res.data.data;
+};
+export const getPostsByUserIdRequest = async (userId: number) => {
+    const res = await apiAuth.get(`/posts/user/${userId}`);
+    return res.data.data;
+};

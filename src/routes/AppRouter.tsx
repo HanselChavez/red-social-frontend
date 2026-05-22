@@ -7,9 +7,14 @@ import AuthLayout from "@/layouts/AuthLayout";
 import Register from "@/pages/auth/Register";
 import Verify from "@/pages/auth/Verify";
 import MyPosts from "@/pages/private/MyPosts";
+import Messages from "@/pages/private/Messages";
 import Maintenance from "@/pages/public/Maintenance";
 import NotFound from "@/pages/public/NotFound";
 import Settings from "@/pages/private/Setting";
+import Profile from "@/pages/private/Profile";
+import UserProfile from "@/pages/private/UserProfile";
+import Notifications from "@/pages/private/Notifications";
+import Explore from "@/pages/private/Explore";
 
 export default function AppRouter() {
     return (
@@ -26,14 +31,12 @@ export default function AppRouter() {
                     <Route element={<MainLayout />}>
                         <Route path="/home" element={<Home />} />
                         <Route path="/my-posts" element={<MyPosts />} />
-                        <Route path="/explore" element={<Maintenance />} />
-                        <Route path="/messages" element={<Maintenance />} />
+                        <Route path="/explore" element={<Explore />} />
+                        <Route path="/messages" element={<Messages />} />
 
-                        <Route
-                            path="/notifications"
-                            element={<Maintenance />}
-                        />
-                        <Route path="/profile" element={<Maintenance />} />
+                        <Route path="/notifications" element={<Notifications />} />
+                        <Route path="/profile" element={<Profile />} />
+                        <Route path="/users/:id" element={<UserProfile />} />
                         <Route path="/settings" element={<Settings />} />
                     </Route>
                 </Route>

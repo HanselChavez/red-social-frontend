@@ -35,3 +35,13 @@ export const createPostRequest = async (data: {
 
     return res.data.data;
 };
+
+
+export const changePasswordRequest = async (data: {
+    currentPassword: string;
+    newPassword: string;
+}) => {
+    const res = await apiAuth.patch("/auth/change-password", data);
+
+    return res.data.data;
+};

@@ -10,6 +10,7 @@ export interface Comment {
     id: number;
     content: string;
     createdAt?: string;
+    user?: User;
 }
 
 export interface Reaction {
@@ -23,6 +24,7 @@ export interface Post {
     content: string;
     createdAt: string;
     imageUrl?: string | null;
+    visibility?: "public" | "friends" | "private";
     user: User;
 
 
@@ -36,6 +38,8 @@ export interface UserProfile {
     firstName: string;
     lastName: string;
     username: string;
+    bio?: string | null;
+    coverImage?: string | null;
 }
 
 export interface AuthResponse {
